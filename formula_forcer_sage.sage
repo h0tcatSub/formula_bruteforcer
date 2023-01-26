@@ -1,27 +1,13 @@
 
 #@title 準備
 from hashlib import sha256
-from ecdsa import ecdsa
 import random
 import itertools
 import re
 import sys
 
-g = ecdsa.generator_secp256k1
-n = g.order()
-
 x = 0xfbf47a8f81a770b6e4135fdd13e9b1dd4be86c09578cae2cc8fe64fbae6174c4
-pub = ecdsa.Public_key(g, x*g)
-pri = ecdsa.Private_key(pub, x)
 k = 0xeed3fb81e541de2fe47350dab1349db7fc909df50ce33c93272f8db397775e7f
-
-nonce = ecdsa.Public_key(g, k*g)
-m1 = 'hello'  # @param {type:"string"}
-print('\033[34m'+'秘密鍵(x)：0x{:x}'.format(x)+'\033[0m')
-print('公開鍵(P)：(0x{:x},0x{:x})'.format(pub.point.x(), pub.point.y()))
-print('\033[35m'+'ナンス(k)：0x{:x}'.format(k)+'\033[0m')
-print('ナンスポイント(R)：(0x{:x},0x{:x})'.format(nonce.point.x(), nonce.point.y()))
-print('メッセージ１：{}'.format(m1))
 
 #r = int(input("R : "), 16)
 #s = int(input("S : "), 16)
@@ -29,11 +15,9 @@ print('メッセージ１：{}'.format(m1))
 
 p = 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEFFFFFC2F
 n = 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEBAAEDCE6AF48A03BBFD25E8CD0364141
-e1 = int.from_bytes(sha256(m1.encode('utf-8')).digest(), 'big')
-sig1 = pri.sign(e1, k)
-r = sig1.r
-s = sig1.s
-z = e1
+r = 0x84ce4a88775d59e3563901ac8025c806a3f34f669623c91ebd2e6bbe5b6404eb
+s = 0xca33f2110c4d77c9cfb71106af5c046fd136698509dd53f0c24b3dd1ace8c18
+z = 0x2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824
 GN = GF(n)
 GP = GF(p)
 
