@@ -41,13 +41,12 @@ result_formula = ""
 vals = itertools.product(chars, repeat = len(chars))
 nr = len(chars) ** len(chars)
 print(f"Try     {nr} patterns")
-i = 0
+i = 1
 file = open("formula.txt", "a")
 
 for val in vals:
     try:
-        val = "".join(val)
-        
+        val ="+".join(val)
         print(f"Pattern {i} {val}", end = "\r")
         i += 1
         # pow  = skip
