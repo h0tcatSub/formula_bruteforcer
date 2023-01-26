@@ -42,31 +42,11 @@ i = 0
 for val in vals:
     try:
         val = "".join(val)
-        pattern_r = re.compile(r"r+")
-        pattern_s = re.compile(r"s+")
-        pattern_z = re.compile(r"z+")
-        pattern_calc = re.compile(r"[!-.]+")
         
         print(f"Pattern {i} {val}", end = "\r")
         i += 1
-        # pow or invalid pattern  = skip
-        if(pattern_calc.search(val)):
-            continue
+        # pow  = skip
         if("**" in val): 
-            continue
-        if("(*)" in val):
-            continue
-        if("(-)" in val):
-            continue
-        if("(/)" in val):
-            continue
-        if("(%)" in val):
-            continue
-        if(pattern_r.search(val)):
-            continue
-        if(pattern_s.search(val)):
-            continue
-        if(pattern_z.search(val)):
             continue
         answer =  eval(val)
         if(answer == k):
