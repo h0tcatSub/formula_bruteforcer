@@ -10,13 +10,13 @@ import sys
 g = ecdsa.generator_secp256k1
 n = g.order()
 
-x = 1
+x = 0xfbf47a8f81a770b6e4135fdd13e9b1dd4be86c09578cae2cc8fe64fbae6174c4
 pub = ecdsa.Public_key(g, x*g)
 pri = ecdsa.Private_key(pub, x)
-k = 2
+k = 0xeed3fb81e541de2fe47350dab1349db7fc909df50ce33c93272f8db397775e7f
+
 nonce = ecdsa.Public_key(g, k*g)
 m1 = 'hello'  # @param {type:"string"}
-
 print('\033[34m'+'秘密鍵(x)：0x{:x}'.format(x)+'\033[0m')
 print('公開鍵(P)：(0x{:x},0x{:x})'.format(pub.point.x(), pub.point.y()))
 print('\033[35m'+'ナンス(k)：0x{:x}'.format(k)+'\033[0m')
@@ -42,6 +42,8 @@ vals = itertools.product(chars, repeat = len(chars))
 nr = len(chars) ** len(chars)
 print(f"Try     {nr} patterns")
 i = 0
+file = open("formula.txt", "a")
+
 for val in vals:
     try:
         val = "".join(val)
@@ -55,7 +57,10 @@ for val in vals:
         if(answer == k):
             print()
             print(answer)
-            print(f"found formula. k = {val}")
+            message = f"found formula. k = {val}"
+            print(message)
+            # Memo : private_key = (((((s * k) % n) - z) % n)*pow(r, n-2, n)) % n
+            file.writelines(message)
     except Exception:
         pass
 print() 

@@ -1,9 +1,11 @@
+
 #@title 準備
 from hashlib import sha256
 from ecdsa import ecdsa
 import random
 import itertools
 import re
+import sys
 
 g = ecdsa.generator_secp256k1
 n = g.order()
@@ -20,7 +22,7 @@ print('公開鍵(P)：(0x{:x},0x{:x})'.format(pub.point.x(), pub.point.y()))
 print('\033[35m'+'ナンス(k)：0x{:x}'.format(k)+'\033[0m')
 print('ナンスポイント(R)：(0x{:x},0x{:x})'.format(nonce.point.x(), nonce.point.y()))
 print('メッセージ１：{}'.format(m1))
-file = open("formula.txt", "a")
+
 #r = int(input("R : "), 16)
 #s = int(input("S : "), 16)
 #z = int(input("Z : "), 16)
@@ -33,30 +35,6 @@ r = sig1.r
 s = sig1.s
 z = e1
 answer = 0
-chars = "rsz*+-/np%()"
-result_formula = ""
-vals = itertools.product(chars, repeat = len(chars))
-nr = len(chars) ** len(chars)
-print(f"Try     {nr} patterns")
-i = 0
-for val in vals:
-    try:
-        val = "".join(val)
-        
-        print(f"Pattern {i} {val}", end = "\r")
-        i += 1
-        # pow  = skip
-        if("**" in val): 
-            continue
-        answer =  eval(val)
-        if(answer == k):
-            print()
-            print(answer)
-            message = f"found formula. k = {val}"
-            print(message)
-            file.writelines(message)
-    except Exception:
-        pass
-print() 
-print("Done.")
-file.close()
+print(f"R = {hex(r)}")
+print(f"S = {hex(s)}")
+print(f"Z = {hex(z)}")
